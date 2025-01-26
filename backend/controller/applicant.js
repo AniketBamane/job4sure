@@ -48,6 +48,36 @@ const createApplicant = async (req, res) => {
   }
 };
 
+const getApplicationsByApplicantId = async (req, res) => {
+  try {
+    const { id } = req.params; // Assuming the applicantId is passed as a URL parameter
+
+    // Find all applications with the given applicantId
+    const applications = await Applicant.find({ applicantId: id }).populate("job");
+
+    // If no applications are found, return a 404 response
+    if (applications.length === 0) {
+      return res.status(200).json({
+        success: true,
+        data:[],
+      });
+    }
+
+    // Return the applications
+    res.status(200).json({
+      success: true,
+      data: applications,
+    });
+  } catch (error) {
+    console.error("Error fetching applications:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 module.exports = {
   createApplicant,
+  getApplicationsByApplicantId,
 };
