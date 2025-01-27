@@ -88,6 +88,38 @@ const fetchJobById = async (req, res) => {
 };
 
 
+const getLatestJobs = async (req, res) => {
+  try {
+    // Fetch the latest 6 jobs, sorted by createdAt in descending order
+    const latestJobs = await Job.find({})
+      .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+      .limit(6); // Limit the results to 6 jobs
+
+    // If no jobs are found, return an empty array
+    if (latestJobs.length === 0) {
+      return res.status(200).json({
+        success: true,
+        data: [],
+        message: "No jobs found.",
+      });
+    }
+
+    // Return the latest jobs
+    res.status(200).json({
+      success: true,
+      data: latestJobs,
+    });
+  } catch (error) {
+    console.error("Error fetching latest jobs:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 
 
-module.exports = { fetchJobs , fetchJobById };
+
+
+
+module.exports = { fetchJobs , fetchJobById ,getLatestJobs};

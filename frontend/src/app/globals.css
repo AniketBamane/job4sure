@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 10%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-lg;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-200 hover:bg-accent/10;
+  }
+
+  .nav-item.active {
+    @apply bg-accent text-white;
+  }
+
+  .page-container {
+    @apply container mx-auto px-4 py-6 max-w-7xl animate-fade-in;
+  }
+
+  .section-title {
+    @apply text-2xl font-semibold mb-6;
+  }
+
+  .card {
+    @apply rounded-lg p-6 transition-all duration-200 hover:shadow-xl;
+  }
+}
